@@ -1,1 +1,7 @@
-<%= link_to "Repositories" %>
+<% if current_user %>
+  <%= render partial: 'home/profile', locals: { profile: @profile } %>
+<% else %>
+  <p>
+    Log in to see some neat stuff
+  </p>
+<% end %>

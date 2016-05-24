@@ -1,0 +1,33 @@
+<p>
+  <%= image_tag(profile.avatar_url, class: "profile-avatar")%>
+</p>
+
+<div class="basic-info">
+  <p>
+    <%= profile.name %> <br>
+    <%= profile.login %>
+  </p>
+
+  <p>
+    <%= profile.email %>
+  </p>
+
+  <p>
+    <%= profile.join_date(profile.login)  %>
+  </p>
+  <p>
+    Followers: <%= profile.followers %>
+  </p>
+
+  <p>
+    Starred: <%= profile.starred(profile.login) %>
+  </p>
+
+  <p>
+    Following: <%= profile.following %>
+  </p>
+</div>
+
+<div class="contributions">
+
+</div>

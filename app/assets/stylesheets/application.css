@@ -13,3 +13,26 @@
  *= require_tree .
  *= require_self
  */
+
+/*body containers*/
+.container-body {
+  margin: 2%;
+}
+
+.container-content {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+/*navbar*/
+.nav-bar {
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  background-color: #efefef
+}
+
+.profile-avatar {
+  max-width: 15%;
+}

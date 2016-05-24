@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.feature "User logs in with Quizlet" do
+RSpec.feature "User logs in with Github" do
 
   def stub_omniauth
     OmniAuth.config.test_mode = true
 
     OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
-      provider: 'quizlet',
+      provider: 'github',
       extra: {
         raw_info: {
           user_id: "1234",
@@ -28,7 +28,9 @@ RSpec.feature "User logs in with Quizlet" do
 
     visit '/'
     expect(page).to have_http_status(200)
-    click_link("Sign in with Quizlet")
+    within(".nav-bar") do
+      click_link("Log in with Github")
+    end
     expect(page).to have_current_path root_path
     expect(page).to have_content "Ling"
     expect(page).to have_link("Logout")
