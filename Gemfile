@@ -30,8 +30,9 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'omniauth-quizlet'
+gem 'omniauth-github'
 gem 'figaro'
+gem 'faraday'
 
 group :development, :test do
   gem 'rspec-rails'
