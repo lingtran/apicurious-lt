@@ -40,4 +40,11 @@ class Profile < OpenStruct
     end
   end
 
+  def all_orgs(user)
+    temp_orgs_arr = Profile.service(user).orgs_hash(user.screen_name)
+    temp_orgs_arr.map do |org_hash|
+      Profile.new(org_hash)
+    end
+  end
+
 end

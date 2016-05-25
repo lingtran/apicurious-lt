@@ -23,7 +23,11 @@ class GithubService
   end
 
   def get_sorted_repositories_with_contributions(screen_name)
-      @connection.get "users/#{screen_name}/repos?type=all&sort=updated"
+    @connection.get "users/#{screen_name}/repos?type=all&sort=updated"
+  end
+
+  def get_organizations(screen_name)
+    @connection.get "user/orgs"
   end
 
   def profile_hash(screen_name)
@@ -38,12 +42,16 @@ class GithubService
     parse(get_owner_repositories(screen_name))
   end
 
-  def member_repos_hash(login)
-    parse(get_member_repositories(login))
+  def member_repos_hash(screen_name)
+    parse(get_member_repositories(screen_name))
   end
 
-  def sorted_repos_with_contributions_hash(login)
-    parse(get_sorted_repositories_with_contributions(login))
+  def sorted_repos_with_contributions_hash(screen_name)
+    parse(get_sorted_repositories_with_contributions(screen_name))
+  end
+
+  def orgs_hash(screen_name)
+    parse(get_organizations(screen_name))
   end
 
   def parse(response)
