@@ -13,15 +13,14 @@
   </p>
 
   <p>
-    <%= profile.join_date(profile.login)  %>
+    <%= profile.join_date(current_user)  %>
   </p>
   <p>
     Followers: <%= profile.followers %>
   </p>
 
-<!-- need to get logic out -->
   <p>
-    Starred: <%= starred.count %>
+    Starred: <%= profile.starred_count(current_user) %>
   </p>
 
   <p>
@@ -31,21 +30,21 @@
 
 <div class="owner-repositories">
   <h4>Popular repositories</h4>
-<% owner_repos.each do |repo_name| %>
-  <li> <%= link_to repo_name.name, repo_name.html_url %> </li>
-<% end %>
+  <% profile.owner_repos(current_user).each do |repo_name| %>
+    <li> <%= link_to repo_name.name, repo_name.html_url %> </li>
+  <% end %>
 </div>
 
 <div class="member-repositories">
   <h4>Repositories contributed to</h4>
-<% member_repos.each do |repo_name| %>
-  <li> <%= link_to repo_name.full_name, repo_name.html_url %> </li>
-<% end %>
+  <% profile.member_repos(current_user).each do |repo_name| %>
+    <li> <%= link_to repo_name.full_name, repo_name.html_url %> </li>
+  <% end %>
 </div>
 
 <div class="all-repositories">
   <h4>Repositories</h4>
-<% all_repos.each do |repo_name| %>
-  <li> <%= link_to repo_name.name, repo_name.html_url %> <br> Updated on <%= repo_name.updated_at.to_time %></li>
-<% end %>
+  <% profile.all_sorted(current_user).each do |repo_name| %>
+    <li> <%= link_to repo_name.name, repo_name.html_url %> <br> Updated on <%= repo_name.updated_at.to_time %></li>
+  <% end %>
 </div>
