@@ -12,9 +12,4 @@ class Profile < OpenStruct
     creation = Profile.find_by(login).created_at.to_time
     creation.strftime("Joined on %b %d, %Y")
   end
-
-  def starred(login)
-    starred = Profile.service.starred_hash(login)
-    starred.length
-  end
 end

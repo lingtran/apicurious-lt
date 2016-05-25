@@ -4,12 +4,13 @@ class Starred < OpenStruct
   end
 
   def self.find_by(login)
-    temp_starred_hash = service.starred_hash(login)
-    Starred.new(temp_starred_hash)
+    temp_starred_arr = service.starred_hash(login)
+    temp_starred_arr.map do |nested_hash|
+      Starred.new(nested_hash)
+    end
   end
 
-  def count(profile)
-    starred = Starred.find_by(profile)
-    starred.length
+  def count_size(login)
+    Starred.find_by(login).length
   end
 end

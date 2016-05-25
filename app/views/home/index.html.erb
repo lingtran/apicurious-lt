@@ -1,5 +1,5 @@
 <% if current_user %>
-  <%= render partial: 'home/profile', locals: { profile: @profile } %>
+  <%= render partial: 'home/profile', locals: { profile: @profile, starred: @starred, owner_repos: @owner_repos, member_repos: @member_repos, all_repos: @all_repos } %>
 <% else %>
   <p>
     Log in to see some neat stuff
