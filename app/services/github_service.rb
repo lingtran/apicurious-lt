@@ -1,48 +1,57 @@
 class GithubService
+  # GithubService.new(current_user.token)
 
-  def initialize
+  def initialize(token)
     @connection = Faraday.new(url:"https://api.github.com/")
-    @connection.headers["Authorization"] = "Token #{ENV['github_token']}"
+    @connection.headers["Authorization"] = "token #{token}"
   end
 
-  def get_profile(login)
-    @connection.get "users/#{login}"
+  def get_profile(screen_name)
+    @connection.get "users/#{screen_name}"
   end
 
-  def get_starred(login)
-    @connection.get "users/#{login}/starred"
+  def get_starred(screen_name)
+    @connection.get "users/#{screen_name}/starred"
   end
 
-  def get_member_repositories(login)
-    @connection.get "users/#{login}/repos?type=member"
+  def get_member_repositories(screen_name)
+    @connection.get "users/#{screen_name}/repos?type=member"
   end
 
-  def get_owner_repositories(login)
-    @connection.get "users/#{login}/repos"
+  def get_owner_repositories(screen_name)
+    @connection.get "users/#{screen_name}/repos"
   end
 
-  def get_sorted_repositories_with_contributions(login)
-      @connection.get "users/#{login}/repos?type=all&sort=updated"
+  def get_sorted_repositories_with_contributions(screen_name)
+    @connection.get "users/#{screen_name}/repos?type=all&sort=updated"
   end
 
-  def profile_hash(login)
-    parse(get_profile(login))
+  def get_organizations(screen_name)
+    @connection.get "user/orgs"
   end
 
-  def starred_hash(login)
-    parse(get_starred(login))
+  def profile_hash(screen_name)
+    parse(get_profile(screen_name))
   end
 
-  def owner_repos_hash(login)
-    parse(get_owner_repositories(login))
+  def starred_hash(screen_name)
+    parse(get_starred(screen_name))
   end
 
-  def member_repos_hash(login)
-    parse(get_member_repositories(login))
+  def owner_repos_hash(screen_name)
+    parse(get_owner_repositories(screen_name))
   end
 
-  def sorted_repos_with_contributions_hash(login)
-    parse(get_sorted_repositories_with_contributions(login))
+  def member_repos_hash(screen_name)
+    parse(get_member_repositories(screen_name))
+  end
+
+  def sorted_repos_with_contributions_hash(screen_name)
+    parse(get_sorted_repositories_with_contributions(screen_name))
+  end
+
+  def orgs_hash(screen_name)
+    parse(get_organizations(screen_name))
   end
 
   def parse(response)
