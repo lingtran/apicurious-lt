@@ -22,9 +22,10 @@ class GithubService
   end
 
   def get_sorted_repositories_with_contributions(screen_name)
-    @connection.params[:type] = "all"
-    @connection.params[:sort] = "updated"
-    @connection.get "users/#{screen_name}/repos"
+    # @connection.params[:type] = "all"
+    # @connection.params[:sort] = "updated"
+
+    @connection.get "users/#{screen_name}/repos", {sort: "updated", :type => "all"}
   end
 
   def get_organizations(screen_name)
