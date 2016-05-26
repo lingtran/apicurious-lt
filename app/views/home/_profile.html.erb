@@ -44,8 +44,8 @@
 
 <div class="all-repositories">
   <h4>Repositories</h4>
-  <% profile.all_sorted(current_user).each do |repo_name| %>
-    <li> <%= link_to repo_name.name, repo_name.html_url %> <br> Updated on <%= repo_name.updated_at.to_time %></li>
+  <% profile.all_repos_sorted(current_user).each do |repo_name| %>
+    <li> <%= link_to repo_name.name, repo_name.html_url %> <br> Updated <%= profile.time_ago(repo_name) %> ago </li>
   <% end %>
 </div>
 
@@ -53,5 +53,19 @@
   <h4>Organizations</h4>
   <% profile.all_orgs(current_user).each do |org| %>
     <%= link_to image_tag(org.avatar_url), html_url(org.url) %> <br>
+  <% end %>
+</div>
+
+<div class="commits">
+  <h4>All Commits</h4>
+  <% profile.all_commits(current_user).each do |commit| %>
+    <li>
+      Repo name: <%= commit.repo[:name] %> <br>
+      <% if commit.payload[:commits] %>
+        Payload: <%= commit.payload[:commits] %>
+      <% else %>
+        There are no commits
+      <% end %>
+    </li>
   <% end %>
 </div>
