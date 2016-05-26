@@ -45,7 +45,7 @@
 <div class="all-repositories">
   <h4>Repositories</h4>
   <% profile.all_repos_sorted(current_user).each do |repo_name| %>
-    <li> <%= link_to repo_name.name, repo_name.html_url %> <br> Updated on <%= repo_name.updated_at.to_time %></li>
+    <li> <%= link_to repo_name.name, repo_name.html_url %> <br> Updated <%= profile.time_ago(repo_name) %> ago </li>
   <% end %>
 </div>
 

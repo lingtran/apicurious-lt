@@ -16,8 +16,8 @@ class Profile < OpenStruct
   end
 
   def starred_count(user)
-     starred = Profile.service(user).starred_hash(user.screen_name)
-     starred.length
+    starred = Profile.service(user).starred_hash(user.screen_name)
+    starred.length
   end
 
   def owner_repos(user)
@@ -39,6 +39,10 @@ class Profile < OpenStruct
     temp_repos_arr.map do |repo_hash|
       Profile.new(repo_hash)
     end
+  end
+
+  def time_ago(repo)
+    time_ago_in_words(repo.updated_at.to_time)
   end
 
   def all_orgs(user)
