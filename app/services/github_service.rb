@@ -1,6 +1,4 @@
 class GithubService
-  # GithubService.new(current_user.token)
-
   def initialize(token)
     @connection = Faraday.new(url:"https://api.github.com/")
     @connection.headers["Authorization"] = "token #{token}"
@@ -15,7 +13,8 @@ class GithubService
   end
 
   def get_member_repositories(screen_name)
-    @connection.get "users/#{screen_name}/repos?type=member"
+    @connection.params[:type] = "member"
+    @connection.get "users/#{screen_name}/repos"
   end
 
   def get_owner_repositories(screen_name)
@@ -23,11 +22,17 @@ class GithubService
   end
 
   def get_sorted_repositories_with_contributions(screen_name)
-    @connection.get "users/#{screen_name}/repos?type=all&sort=updated"
+    @connection.params[:type] = "all"
+    @connection.params[:sort] = "updated"
+    @connection.get "users/#{screen_name}/repos"
   end
 
   def get_organizations(screen_name)
     @connection.get "user/orgs"
+  end
+
+  def get_push_events(screen_name)
+    @connection.get "/users/#{screen_name}/events"
   end
 
   def profile_hash(screen_name)
@@ -52,6 +57,10 @@ class GithubService
 
   def orgs_hash(screen_name)
     parse(get_organizations(screen_name))
+  end
+
+  def push_events_hash(screen_name)
+    parse(get_push_events(screen_name))
   end
 
   def parse(response)

@@ -1,4 +1,5 @@
 class Profile < OpenStruct
+  include ActionView::Helpers::DateHelper
 
   def self.service(user)
     GithubService.new(user.oauth_token)
@@ -33,7 +34,7 @@ class Profile < OpenStruct
     end.take(5)
   end
 
-  def all_sorted(user)
+  def all_repos_sorted(user)
     temp_repos_arr = Profile.service(user).sorted_repos_with_contributions_hash(user.screen_name)
     temp_repos_arr.map do |repo_hash|
       Profile.new(repo_hash)
@@ -44,6 +45,14 @@ class Profile < OpenStruct
     temp_orgs_arr = Profile.service(user).orgs_hash(user.screen_name)
     temp_orgs_arr.map do |org_hash|
       Profile.new(org_hash)
+    end
+  end
+
+  def all_commits(user)
+     Profile.service(user).push_events_hash(user.screen_name).find_all do |event|
+      event[:type] = "PushEvent"
+    end.map do |commits_hash|
+      Profile.new(commits_hash)
     end
   end
 

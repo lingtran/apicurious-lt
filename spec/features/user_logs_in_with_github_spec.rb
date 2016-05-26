@@ -9,9 +9,9 @@ RSpec.feature "User logs in with Github" do
       provider: 'github',
       extra: {
         raw_info: {
-          user_id: "1234",
+          id: "1234",
           name: "Ling",
-          screen_name: "lingtran"
+          login: "lingtran"
         }
       },
       credentials: {
@@ -19,12 +19,13 @@ RSpec.feature "User logs in with Github" do
         secret: "secretchocolate"
       }
       })
-    end
+  end
 
   scenario "they can log in" do
 
     Capybara.app = ApicuriousLt::Application
-    stub_omniauth
+    User.from_omniauth(stub_omniauth)
+    # stub_omniauth
 
     visit '/'
     expect(page).to have_http_status(200)
