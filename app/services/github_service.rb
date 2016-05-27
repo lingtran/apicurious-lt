@@ -13,8 +13,7 @@ class GithubService
   end
 
   def get_member_repositories(screen_name)
-    @connection.params[:type] = "member"
-    @connection.get "users/#{screen_name}/repos"
+    @connection.get "users/#{screen_name}/repos", {type: "member"}
   end
 
   def get_owner_repositories(screen_name)
@@ -22,10 +21,7 @@ class GithubService
   end
 
   def get_sorted_repositories_with_contributions(screen_name)
-    # @connection.params[:type] = "all"
-    # @connection.params[:sort] = "updated"
-
-    @connection.get "users/#{screen_name}/repos", {sort: "updated", :type => "all"}
+    @connection.get "users/#{screen_name}/repos", {sort: "updated", type: "all"}
   end
 
   def get_organizations(screen_name)

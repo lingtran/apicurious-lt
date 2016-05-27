@@ -16,11 +16,42 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+require 'vcr'
+
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/cassettes"
+  config.hook_into :webmock
+  # look into what rspec metadata does
+  config.configure_rspec_metadata!
+  config.allow_http_connections_when_no_cassette = true
+end
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
   config.expect_with :rspec do |expectations|
+
+    # config.before :each do
+    #   OmniAuth.config.test_mode = true
+    #
+    #   OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
+    #     provider: 'github',
+    #     uid: "1234",
+    #     extra: {
+    #       raw_info: {
+    #         id: "1234",
+    #         name: "Ling",
+    #         login: "lingtran"
+    #       }
+    #     },
+    #     credentials: {
+    #       token: ENV["github_token"],
+    #       secret: "secretchocolate"
+    #     }
+    #     })
+    # end
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods
     # defined using `chain`, e.g.:

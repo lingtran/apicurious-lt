@@ -2,19 +2,20 @@ module OmniAuthHelpers
   def stub_omniauth
     OmniAuth.config.test_mode = true
 
-    OmniAuth.config.mock_auth[:quizlet] = OmniAuth::AuthHash.new({
-      provider: 'quizlet',
+    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
+      provider: 'github',
+      uid: "1234",
       extra: {
         raw_info: {
-          user_id: "1234",
+          id: "1234",
           name: "Ling",
-          screen_name: "lingtran"
+          login: "lingtran"
         }
       },
       credentials: {
         token: "chocolate",
         secret: "secretchocolate"
       }
-    })
+      })
   end
 end

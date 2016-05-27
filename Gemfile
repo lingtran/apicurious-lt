@@ -34,6 +34,11 @@ gem 'omniauth-github'
 gem 'figaro'
 gem 'faraday'
 
+group :test do
+  gem 'vcr'
+  gem 'webmock'
+end
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
